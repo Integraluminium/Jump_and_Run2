@@ -1,0 +1,131 @@
+{
+  "0100": {
+    "image": "box.png"
+  },
+  "0101": {
+    "image": "boxEmpty.png"
+  },
+  "0102": {
+    "image": "boxAlt.png"
+    },
+  "0103": {
+    "image": "boxCoin.png"
+    },
+  "0104": {
+    "image": "boxCoin_disabled.png"
+    },
+  "0105": {
+    "image": "boxCoinAlt.png"
+    },
+  "0106": {
+    "image": "boxCoinAlt_disabled.png"
+    },
+  "0107": {
+    "image": "boxExplosive.png"
+    },
+  "0108": {
+    "image": "boxExplosive_disabled.png"
+    },
+  "0109": {
+    "image": "boxExplosiveAlt.png"
+    },
+  "010A": {
+    "image": "boxItem.png"
+    },
+  "010B": {
+    "image": "boxItem_disabled.png"
+    },
+  "010C": {
+    "image": "boxItemAlt.png"
+    },
+  "010D": {
+    "image": "boxItemAlt_disabled.png"
+    },
+  "010E": {
+    "image": "boxWarning.png"
+    },
+
+  "0201": {
+    "image": "torch.png"
+  },
+  "0202": {
+    "image": "springboardUp.png"
+  },
+  "0203": {
+    "image": "umbrellaOpen.png"
+  },
+  "0204": {
+    "image": "umbrellaClosed.png"
+  },
+  "0210": {
+    "image": "coinGold.png",
+    "value": 2
+  },
+  "0211": {
+    "image": "coinSilver.png",
+    "value": 1
+  },
+  "0212": {
+    "image": "gemBlue.png",
+    "value": 5
+  },
+  "0213": {
+    "image": "gemGreen.png",
+    "value": 5
+  },
+  "0214": {
+    "image": "gemRed.png",
+    "value": 5
+  },
+  "0215": {
+    "image": "gemYellow.png",
+    "value": 5
+  },
+  "0220": {
+      "image": "flagBlue.png",
+      "color": "Blue"
+  },
+  "0221": {
+      "image": "flagGreen.png",
+      "color": "Green"
+  },
+  "0222": {
+      "image": "flagRed.png",
+      "color": "Red"
+  },
+  "0223": {
+      "image": "flagYellow.png",
+      "color": "Yellow"
+  },
+  "0230": {
+    "image": "buttonBlue.png"
+  },
+  "0231": {
+    "image": "buttonGreen.png"
+  },
+  "0232": {
+    "image": "buttonRed.png"
+  },
+  "0233": {
+    "image": "buttonYellow.png"
+  },
+  "0240": {
+    "image": "keyBlue.png"
+  },
+  "0241": {
+    "image": "keyGreen.png"
+  },
+  "0242": {
+    "image": "keyRed.png"
+  },
+  "0243": {
+    "image": "keyYellow.png"
+  },
+  "0100": {
+    "image": "box.png"
+  },
+  "0100": {
+    "image": "box.png"
+  },
+
+}

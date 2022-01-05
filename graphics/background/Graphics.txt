@@ -1,0 +1,2 @@
+bg_castle --> platformer-art-complete-pack-0/Base pack/bg_castle.png
+cloud, mountain2, pine1, pine2, sky, sky_cloud --> forest_tileset_lite/forest_tileset_lite/Sprites/Background/*
