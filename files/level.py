@@ -88,90 +88,98 @@ class Level:
     def parse_level(self, level_data: dict):
         enemy_sp_sheet = SpriteSheet("graphics/enemys/enemys.png")
         static_tiles = get_static_tiles()
-        for name, layer in level_data.items():
-            # print(layer)
-            for row_index, row in enumerate(layer):
-                for tile_index, cell in enumerate(row):
-                    x = tile_index*self.tile_size
-                    y = row_index*self.tile_size
-                    size = self.tile_size
-                    sp_sheet = self.sprite_sheet
-                    pos = (x, y)
-                    # print(static_tiles["tiles_with_collision"])
 
-                    if name == "layer4":
-                        self.background_group.add()
+        if type(level_data) == dict:
+            for name, layer in level_data.items():
+                # print(layer)
+                self.parse_layer(enemy_sp_sheet, layer, name, static_tiles)
 
-                    if cell == "0000":    # air
-                        continue
+        else:   # Compatability with former level format
+            self.parse_layer(enemy_sp_sheet, level_data, "Layer1", static_tiles)
 
-                    elif cell in static_tiles["tiles_with_collision"]:  # static tiles like grass or dirt
-                        self.tile_sprites.add(StaticTile(
-                            pos=pos, size=size, sp_sheet=sp_sheet,
-                            file=static_tiles["tiles_with_collision"][cell]["image"]))
+    def parse_layer(self, enemy_sp_sheet, layer, name, static_tiles):
+        for row_index, row in enumerate(layer):
+            for tile_index, cell in enumerate(row):
+                x = tile_index * self.tile_size
+                y = row_index * self.tile_size
+                size = self.tile_size
+                sp_sheet = self.sprite_sheet
+                pos = (x, y)
+                # print(static_tiles["tiles_with_collision"])
 
-                    elif cell in static_tiles["half_tiles"]:  # static tiles like grass or dirt
-                        self.tile_sprites.add(HalfStaticTile(
-                            pos=pos, size=size, sp_sheet=sp_sheet,
-                            file=static_tiles["half_tiles"][cell]["image"]))
+                if name == "layer4":
+                    self.background_group.add()
 
-                    elif cell in static_tiles["decoration"]:    # decoration TODO Change ID to complete 19xx, now 19xx and
-                        # TODO and 2000 -2003, 2015 - 2019
-                        self.decoration_sprites.add(StaticTile(
-                            pos=pos, size=size, sp_sheet=sp_sheet,
-                            file=static_tiles["decoration"][cell]["image"]))
+                if cell == "0000":  # air
+                    continue
 
-                    elif cell in static_tiles["box"]:     # gold and silver coins, gems  1900 - 1909 reserved
-                        data = static_tiles["box"][cell]
-                        self.crate_group.add(Crate(pos, size, sp_sheet=sp_sheet, file=data["image"]))
+                elif cell in static_tiles["tiles_with_collision"]:  # static tiles like grass or dirt
+                    self.tile_sprites.add(StaticTile(
+                        pos=pos, size=size, sp_sheet=sp_sheet,
+                        file=static_tiles["tiles_with_collision"][cell]["image"]))
 
-                    elif cell in static_tiles["coins"]:     # gold and silver coins, gems
-                        data = static_tiles["coins"][cell]
-                        self.coin_group.add(Coin(pos, size, sp_sheet=sp_sheet, file=data["image"], value=data["value"]))
+                elif cell in static_tiles["half_tiles"]:  # static tiles like grass or dirt
+                    self.tile_sprites.add(HalfStaticTile(
+                        pos=pos, size=size, sp_sheet=sp_sheet,
+                        file=static_tiles["half_tiles"][cell]["image"]))
 
-                    elif cell in static_tiles["liquid"]:  # liquid 1800 - 1805
-                        self.lava_group.add(Liquid(
-                            pos=pos, size=size, sp_sheet=sp_sheet,
-                            file_name=static_tiles["liquid"][cell]["image"]))
+                elif cell in static_tiles["decoration"]:  # decoration TODO Change ID to complete 19xx, now 19xx and
+                    # TODO and 2000 -2003, 2015 - 2019
+                    self.decoration_sprites.add(StaticTile(
+                        pos=pos, size=size, sp_sheet=sp_sheet,
+                        file=static_tiles["decoration"][cell]["image"]))
 
-                    elif cell in static_tiles["ladder"]:    # ladder 1810 - 1811
-                        data = static_tiles["ladder"][cell]
-                        t = True if data["ladder_type"] == "top" else False
-                        self.ladder_group.add(Ladder(pos, size, data["image"], sp_sheet, t))
+                elif cell in static_tiles["box"]:  # gold and silver coins, gems  1900 - 1909 reserved
+                    data = static_tiles["box"][cell]
+                    self.crate_group.add(Crate(pos, size, sp_sheet=sp_sheet, file=data["image"]))
 
-                    elif cell in static_tiles["flags"]:     # flags 2010 - 2013
-                        data = static_tiles["flags"][cell]
-                        self.flag_group.add(Flag(pos, size, sp_sheet, data["color"]))
+                elif cell in static_tiles["coins"]:  # gold and silver coins, gems
+                    data = static_tiles["coins"][cell]
+                    self.coin_group.add(Coin(pos, size, sp_sheet=sp_sheet, file=data["image"], value=data["value"]))
 
-                    elif cell == "2022":
-                        self.springboard_group.add(Springboard(pos, size, "springboardUp.png", sp_sheet))
+                elif cell in static_tiles["liquid"]:  # liquid 1800 - 1805
+                    self.lava_group.add(Liquid(
+                        pos=pos, size=size, sp_sheet=sp_sheet,
+                        file_name=static_tiles["liquid"][cell]["image"]))
 
-                    elif cell == "2020":
-                        self.spike_group.add(Spikes(pos, size, "spikes.png", sp_sheet))
+                elif cell in static_tiles["ladder"]:  # ladder 1810 - 1811
+                    data = static_tiles["ladder"][cell]
+                    t = True if data["ladder_type"] == "top" else False
+                    self.ladder_group.add(Ladder(pos, size, data["image"], sp_sheet, t))
 
-                    elif cell == "0005":
-                        self.enemy_group.add(Slime(pos, size, enemy_sp_sheet, name="slime"))
-                    elif cell == "0006":
-                        self.enemy_group.add(Slime(pos, size, enemy_sp_sheet, name="slimeBlue"))
-                    elif cell == "0007":
-                        self.enemy_group.add(Slime(pos, size, enemy_sp_sheet, name="slimeGreen"))
-                    elif cell == "0004":
-                        self.blocker_group.add(Tile(pos, size))
+                elif cell in static_tiles["flags"]:  # flags 2010 - 2013
+                    data = static_tiles["flags"][cell]
+                    self.flag_group.add(Flag(pos, size, sp_sheet, data["color"]))
 
-                    elif cell == "0001":    # Player
-                        self.player.sprite.rect.topleft = (x, y)
+                elif cell == "2022":
+                    self.springboard_group.add(Springboard(pos, size, "springboardUp.png", sp_sheet))
 
-                    elif cell == "1904":
-                        self.exit_group.add(Door(pos, size, sp_sheet, True))
+                elif cell == "2020":
+                    self.spike_group.add(Spikes(pos, size, "spikes.png", sp_sheet))
 
-                    elif cell == "1903":
-                        self.tile_sprites.add(Log(pos, size, sp_sheet=sp_sheet, file="bridgeLogs.png"))
+                elif cell == "0005":
+                    self.enemy_group.add(Slime(pos, size, enemy_sp_sheet, name="slime"))
+                elif cell == "0006":
+                    self.enemy_group.add(Slime(pos, size, enemy_sp_sheet, name="slimeBlue"))
+                elif cell == "0007":
+                    self.enemy_group.add(Slime(pos, size, enemy_sp_sheet, name="slimeGreen"))
+                elif cell == "0004":
+                    self.blocker_group.add(Tile(pos, size))
 
-                    else:   # debug, shows other tiles
-                        self.decoration_sprites.add(StaticTile(
-                            pos=pos, size=size, sp_sheet=sp_sheet,
-                            file="bomb.png"))
-                # print(row)
+                elif cell == "0001":  # Player
+                    self.player.sprite.rect.topleft = (x, y)
+
+                elif cell == "1904":
+                    self.exit_group.add(Door(pos, size, sp_sheet, True))
+
+                elif cell == "1903":
+                    self.tile_sprites.add(Log(pos, size, sp_sheet=sp_sheet, file="bridgeLogs.png"))
+
+                else:  # debug, shows other tiles
+                    self.decoration_sprites.add(StaticTile(
+                        pos=pos, size=size, sp_sheet=sp_sheet,
+                        file="bomb.png"))
+            # print(row)
 
     def scroll_x(self):
         player = self.player.sprite
@@ -454,6 +462,8 @@ class Level:
         self.enemy_group.draw(screen)
         self.enemy_movement_collision()
         self.blocker_group.update(self.world_shift)
+
+        return
 
 
         for enemy in self.enemy_group.sprites():
